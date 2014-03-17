@@ -1,6 +1,6 @@
 # ChineseNumber
 
-This ruby gem helps you convert Chinse numbers into Arab numbers. For example:
+这个 ruby gem 可以用来解析汉语描述的数字，转换成阿拉伯数字。例如：
 
 ~~~ruby
 require 'chinse_number'
@@ -8,23 +8,24 @@ ChinseNumber.trans "一年有三百六十五天"
 #=> "1年有365天"
 ~~~
 
-## Installation
+## 安装
 
-Add this line to your application's Gemfile:
+在 Gemfile 中添加
 
     gem 'chinese_number'
 
-And then execute:
+然后运行:
 
     $ bundle
 
-Or install it yourself as:
+或者直接用 gem 安装
 
     $ gem install chinese_number
 
-## Usage
+## 使用方法
 
-You can use the top-level api:
+可以用封装后的高级 api:
+
 ~~~ruby
 ChinseNumber.trans "我有十块钱"
 #=> "我有10块钱"
@@ -33,16 +34,21 @@ ChinseNumber.trans "二〇一四年"
 #=> "2014年"
 ~~~
 
-or use the standalone parser:
+或者独立的 Parser 类:
+
 ~~~ruby
 ChinseNumber::Parser.new.parse "一万二"
 #=> 12000
 ~~~
 
-## Contributing
+## 协议
 
-1. Fork it ( http://github.com/<my-github-username>/chinese_number/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+the MIT license
+
+## 贡献
+
+1. Fork ( http://github.com/qhwa/chinese_number/fork )
+2. 创建一个分支 (`git checkout -b my-new-feature`)
+3. 提交你的修改 (`git commit -am 'Add some feature'`)
+4. push 到你的 github 仓库(`git push origin my-new-feature`)
+5. 创建一个 Pull Request
