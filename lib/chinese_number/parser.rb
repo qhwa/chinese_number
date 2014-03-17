@@ -22,13 +22,23 @@ module ChineseNumber
         '百' => 100,
         '千' => 1000,
         '万' => 10000,
-        '亿' => 10000_0000,
-        '兆' => 10000_0000_0000
+
+        # “兆” 在各处有不同的意义
+        # 可能是 “百万”、“万亿”或“万万亿”
+        # see:
+        # http://zh.wikipedia.org/wiki/%E5%85%86
+        #
+        # 你可以通过这样的方式修改成需要的含义：
+        #
+        #   ChineseNumber::Parser::MULTIPERS['兆'] = 10000_0000_0000 
+        '兆' => 100_0000,
+
+        '亿' => 10000_0000
       }
     end
 
     DIGIT_MAP      = generate_base_map.freeze
-    MULTIPERS      = generate_multipers_map.freeze
+    MULTIPERS      = generate_multipers_map
     DIGIT_TOKEN    = Regexp.new( "[#{DIGIT_MAP.keys.join}]" )
     MULTIPER_TOKEN = Regexp.new( "[#{MULTIPERS.keys.join}]" )
     TOKEN          = Regexp.new( "[#{(DIGIT_MAP.keys + MULTIPERS.keys).join}]+" )
