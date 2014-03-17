@@ -91,6 +91,14 @@ describe ChineseNumber::Parser do
     }.to raise_error( ChineseNumber::Parser::InvalidWord )
   end
 
+  it '可以解析汉字和数字混用的情形' do
+    test '3千万', 3000_0000
+  end
+
+  it '支持纯阿拉伯数字' do
+    test '3134', 3134
+  end
+
   def test word, expect_digit
     @parser.parse( word ).should == expect_digit
   end

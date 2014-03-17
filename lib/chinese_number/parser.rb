@@ -11,9 +11,8 @@ module ChineseNumber
       digits         = "12345678900".chars.map(&:to_i)
       Hash.new.tap do |map|
         chinse_numbers.each_with_index do |w, i|
-          digit      = digits[i]
-          map[w]     = digit
-          map[digit] = w
+          d      = digits[i]
+          map[w] = map[d.to_s] = d
         end
       end
     end
