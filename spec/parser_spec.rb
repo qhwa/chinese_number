@@ -1,9 +1,9 @@
 require_relative 'spec_helper'
 
-describe ChinseNumber::Parser do
+describe ChineseNumber::Parser do
 
   before(:each) do
-    @parser = ChinseNumber::Parser.new
+    @parser = ChineseNumber::Parser.new
   end
 
   it '可以解析个位数字' do
@@ -77,6 +77,12 @@ describe ChinseNumber::Parser do
   it '可以解析一些特殊的数字' do
     test '万万', 10000_0000
     test '十万八千', 10_8000
+  end
+
+  it '对于不合法的文字抛出错误' do
+    expect {
+      @parser.parse('没有数字').should
+    }.to raise_error( ChineseNumber::Parser::UnexpectToken )
   end
 
   def test word, expect_digit

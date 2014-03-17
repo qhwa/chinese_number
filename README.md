@@ -1,6 +1,12 @@
 # ChineseNumber
 
-TODO: Write a gem description
+This ruby gem helps you convert Chinse numbers into Arab numbers. For example:
+
+~~~ruby
+require 'chinse_number'
+ChinseNumber.trans "一年有三百六十五天"
+#=> "1年有365天"
+~~~
 
 ## Installation
 
@@ -18,7 +24,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You can use the top-level api:
+~~~ruby
+ChinseNumber.trans "我有十块钱"
+#=> "我有10块钱"
+~~~
+
+or use the standalone parser:
+~~~ruby
+ChinseNumber::Parser.new.parse "一万二"
+#=> 12000
+~~~
 
 ## Contributing
 

@@ -1,6 +1,6 @@
 require 'strscan'
 
-module ChinseNumber
+module ChineseNumber
 
   class Parser
     
@@ -31,6 +31,7 @@ module ChinseNumber
     MULTIPERS      = generate_multipers_map.freeze
     DIGIT_TOKEN    = Regexp.new( "[#{DIGIT_MAP.keys.join}]" )
     MULTIPER_TOKEN = Regexp.new( "[#{MULTIPERS.keys.join}]" )
+    TOKEN          = Regexp.new( "[#{(DIGIT_MAP.keys + MULTIPERS.keys).join}]+" )
 
     def parse word
       @scanner = StringScanner.new( word )
@@ -66,6 +67,8 @@ module ChinseNumber
             parts << MultipedNum.new( 1, multiper )
           end
 
+        else
+          raise UnexpectToken.new(w)
         end
       end
 
@@ -74,10 +77,13 @@ module ChinseNumber
       end
     end
 
-    MultipedNum = Struct.new(:base, :factor) do
+    class MultipedNum < Struct.new(:base, :factor)
       def to_i
         base * factor       
       end
+    end
+
+    class UnexpectToken < RuntimeError
     end
 
   end
