@@ -37,8 +37,12 @@ ChinseNumber.trans "二〇一四年"
 或者独立的 Parser 类:
 
 ~~~ruby
-ChinseNumber::Parser.new.parse "一万二"
+parser = ChinseNumber::Parser.new
+parser.parse "一万二"
 #=> 12000
+
+parser.parse "3千1百零5"
+#=> 3105
 ~~~
 
 ## 协议
