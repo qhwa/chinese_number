@@ -6,8 +6,6 @@ describe ChinseNumber::Parser do
     @parser = ChinseNumber::Parser.new
   end
 
-  <<-END
-  END
   it '可以解析个位数字' do
     test '零', 0
     test '〇', 0
@@ -68,19 +66,21 @@ describe ChinseNumber::Parser do
 
   it '可以解析七位数字' do
     test '一百万', 100_0000
-    #test '一百二十万', 120_0000
-    #test '一百二十四万', 124_0000
+    test '一百二十万', 120_0000
+    test '一百二十四万', 124_0000
+  end
+
+  it '可以解析更大的数字' do
+    test '一百三十二万五千六百八十九亿八千万', 132_5689_8000_0000
   end
 
   it '可以解析一些特殊的数字' do
     test '万万', 10000_0000
+    test '十万八千', 10_8000
   end
-  <<-END
-  END
 
   def test word, expect_digit
     @parser.parse( word ).should == expect_digit
-    #word.gsub(/./) { |c| '零一二三四五六七八九'.chars.index(c) }.to_i.should == expect_digit
   end
 
 end

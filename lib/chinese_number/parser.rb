@@ -5,8 +5,8 @@ module ChinseNumber
   class Parser
     
     def self.generate_base_map
-      chinse_numbers = "一二三四五六七八九〇零".split('')
-      digits         = "12345678900".split('').map(&:to_i)
+      chinse_numbers = "一二三四五六七八九〇零".chars
+      digits         = "12345678900".chars.map(&:to_i)
       Hash.new.tap do |map|
         chinse_numbers.each_with_index do |w, i|
           digit      = digits[i]
@@ -44,17 +44,17 @@ module ChinseNumber
           # 此处处理省略倍数的情况，例如
           # "一万五"、"八万八"
           if @scanner.eos? && parts.last && parts.last.factor >= 10
-            parts << Multiper.new( num, parts.last.factor / 10 )
+            parts << MultipedNum.new( num, parts.last.factor / 10 )
           else
-            parts << Multiper.new( num, 1 )
+            parts << MultipedNum.new( num, 1 )
           end
 
         when MULTIPER_TOKEN
-          multiper = MULTIPERS[w]
-
           if parts.empty?
-            parts << Multiper.new( 1, 1 )
+            parts << MultipedNum.new( 1, 1 )
           end
+
+          multiper = MULTIPERS[w]
 
           if parts.last.factor <= multiper
             parts.each do |part|
@@ -63,7 +63,7 @@ module ChinseNumber
               end
             end
           else
-            parts << Multiper.new( 1, multiper )
+            parts << MultipedNum.new( 1, multiper )
           end
 
         end
@@ -74,7 +74,7 @@ module ChinseNumber
       end
     end
 
-    Multiper = Struct.new(:base, :factor) do
+    MultipedNum = Struct.new(:base, :factor) do
       def to_i
         base * factor       
       end
