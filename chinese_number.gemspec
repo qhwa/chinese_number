@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ChineseNumber::VERSION
   spec.authors       = ["qhwa"]
   spec.email         = ["qhwa@163.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Translate Chinese numbers into Arabic numbers}
+  spec.description   = %q{This ruby gem translate Chinse numbers into Arabic numbers. e.g. “一十” => 10.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

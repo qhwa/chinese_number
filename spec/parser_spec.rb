@@ -6,6 +6,12 @@ describe ChineseNumber::Parser do
     @parser = ChineseNumber::Parser.new
   end
 
+  it '可以解析连续的数字' do
+    test '一二三', 123
+    test '二零一二', 2012
+    test '二〇一二', 2012
+  end
+
   it '可以解析个位数字' do
     test '零', 0
     test '〇', 0
@@ -82,7 +88,7 @@ describe ChineseNumber::Parser do
   it '对于不合法的文字抛出错误' do
     expect {
       @parser.parse('没有数字').should
-    }.to raise_error( ChineseNumber::Parser::UnexpectToken )
+    }.to raise_error( ChineseNumber::Parser::InvalidWord )
   end
 
   def test word, expect_digit

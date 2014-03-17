@@ -28,6 +28,9 @@ You can use the top-level api:
 ~~~ruby
 ChinseNumber.trans "我有十块钱"
 #=> "我有10块钱"
+
+ChinseNumber.trans "二〇一四年"
+#=> "2014年"
 ~~~
 
 or use the standalone parser:

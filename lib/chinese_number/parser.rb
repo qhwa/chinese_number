@@ -34,6 +34,14 @@ module ChineseNumber
     TOKEN          = Regexp.new( "[#{(DIGIT_MAP.keys + MULTIPERS.keys).join}]+" )
 
     def parse word
+      
+      raise InvalidWord unless word =~ /\A#{TOKEN}\Z/
+
+      # 类似“二零一二” 这种短语，可以直接拼数字返回
+      unless word =~ MULTIPER_TOKEN
+        return word.gsub(/\S/) {|w| DIGIT_MAP[w]}.to_i
+      end
+
       @scanner = StringScanner.new( word )
       parts    = []
 
@@ -83,7 +91,7 @@ module ChineseNumber
       end
     end
 
-    class UnexpectToken < RuntimeError
+    class InvalidWord < RuntimeError
     end
 
   end
