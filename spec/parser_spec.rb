@@ -15,6 +15,7 @@ describe ChineseNumber::Parser do
   it '可以解析个位数字' do
     test '零', 0
     test '〇', 0
+    test '两', 2
   
     '一二三四五六七八九'.each_char.to_a.each_with_index do |w, i|
       test w, i + 1

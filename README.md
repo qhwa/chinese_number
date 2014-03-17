@@ -32,6 +32,9 @@ ChinseNumber.trans "我有十块钱"
 
 ChinseNumber.trans "二〇一四年"
 #=> "2014年"
+
+ChineseNumber.extract '每分钟六十秒的速度前进二十四小时'
+#=> [60, 24]
 ~~~
 
 或者独立的 Parser 类:
@@ -44,6 +47,10 @@ parser.parse "一万二"
 parser.parse "3千1百零5"
 #=> 3105
 ~~~
+
+## TODO
+
+小数解析
 
 ## 协议
 
