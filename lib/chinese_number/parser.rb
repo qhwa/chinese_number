@@ -3,6 +3,8 @@ require 'strscan'
 module ChineseNumber
 
   class Parser
+
+    attr_reader :parts
     
     def self.generate_base_map
       chinse_numbers = "一二三四五六七八九〇零".chars
@@ -53,38 +55,14 @@ module ChineseNumber
       end
 
       @scanner = StringScanner.new( word )
-      parts    = []
+      @parts   = []
 
       while w = @scanner.scan( /\S/ )
         case w
         when DIGIT_TOKEN
-          num = DIGIT_MAP[w]
-
-          # 此处处理省略倍数的情况，例如
-          # "一万五"、"八万八"
-          if @scanner.eos? && parts.last && parts.last.factor >= 10
-            parts << MultipedNum.new( num, parts.last.factor / 10 )
-          else
-            parts << MultipedNum.new( num, 1 )
-          end
-
+          handle_digit DIGIT_MAP[w]
         when MULTIPER_TOKEN
-          if parts.empty?
-            parts << MultipedNum.new( 1, 1 )
-          end
-
-          multiper = MULTIPERS[w]
-
-          if parts.last.factor <= multiper
-            parts.each do |part|
-              if part.factor <= multiper
-                part.factor *= multiper
-              end
-            end
-          else
-            parts << MultipedNum.new( 1, multiper )
-          end
-
+          handle_multiper MULTIPERS[w]
         else
           raise UnexpectToken.new(w)
         end
@@ -94,6 +72,34 @@ module ChineseNumber
         sum + part.to_i
       end
     end
+
+    private
+
+      def handle_digit num
+        # 此处处理省略倍数的情况，例如
+        # "一万五"、"八万八"
+        if @scanner.eos? && parts.last && parts.last.factor >= 10
+          parts << MultipedNum.new( num, parts.last.factor / 10 )
+        else
+          parts << MultipedNum.new( num, 1 )
+        end
+      end
+
+      def handle_multiper multiper
+        if parts.empty?
+          parts << MultipedNum.new( 1, 1 )
+        end
+
+        if parts.last.factor <= multiper
+          parts.each do |part|
+            if part.factor <= multiper
+              part.factor *= multiper
+            end
+          end
+        else
+          parts << MultipedNum.new( 1, multiper )
+        end
+      end
 
     class MultipedNum < Struct.new(:base, :factor)
       def to_i
