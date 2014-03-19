@@ -27,13 +27,18 @@ ChinseNumber.trans "一年有三百六十五天"
 可以用封装后的高级 api:
 
 ~~~ruby
+require 'chinese_number'
+
 ChinseNumber.trans "我有十块钱"
 #=> "我有10块钱"
 
 ChinseNumber.trans "二〇一四年"
 #=> "2014年"
 
-ChineseNumber.extract '每分钟六十秒的速度前进二十四小时'
+ChineseNumber.find "每分钟六十秒的速度前进二十四小时"
+#=> [{'六十' => 60}, {'二十四' => 24}]
+
+ChineseNumber.extract "每分钟六十秒的速度前进二十四小时"
 #=> [60, 24]
 ~~~
 
