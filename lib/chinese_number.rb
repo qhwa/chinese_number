@@ -15,5 +15,11 @@ module ChineseNumber
         Parser.new.parse( word )
       end
     end
+
+    def find text
+      text.scan( Parser::TOKEN ).map do |word|
+        { word => Parser.new.parse( word ) }
+      end
+    end
   end
 end
