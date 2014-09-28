@@ -7,10 +7,10 @@ module ChineseNumber
     attr_reader :parts
     
     def self.generate_base_map
-      chinse_numbers = "一两二三四五六七八九〇零".chars
-      digits         = "122345678900".chars.map(&:to_i)
+      chinese_numbers = "一两二三四五六七八九〇零".chars
+      digits          = "122345678900".chars.map(&:to_i)
       Hash.new.tap do |map|
-        chinse_numbers.each_with_index do |w, i|
+        chinese_numbers.each_with_index do |w, i|
           d      = digits[i]
           map[w] = map[d.to_s] = d
         end
@@ -18,7 +18,7 @@ module ChineseNumber
     end
 
     def self.generate_multipers_map
-      chinse_multipers = {
+      {
         '十' => 10,
         '百' => 100,
         '千' => 1000,

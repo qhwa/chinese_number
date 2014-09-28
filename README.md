@@ -3,8 +3,8 @@
 这个 ruby gem 可以用来解析汉语描述的数字，转换成阿拉伯数字。例如：
 
 ~~~ruby
-require 'chinse_number'
-ChinseNumber.trans "一年有三百六十五天"
+require 'chinese_number'
+ChineseNumber.trans "一年有三百六十五天"
 #=> "1年有365天"
 ~~~
 
@@ -29,10 +29,10 @@ ChinseNumber.trans "一年有三百六十五天"
 ~~~ruby
 require 'chinese_number'
 
-ChinseNumber.trans "我有十块钱"
+ChineseNumber.trans "我有十块钱"
 #=> "我有10块钱"
 
-ChinseNumber.trans "二〇一四年"
+ChineseNumber.trans "二〇一四年"
 #=> "2014年"
 
 ChineseNumber.find "每分钟六十秒的速度前进二十四小时"
@@ -45,7 +45,7 @@ ChineseNumber.extract "每分钟六十秒的速度前进二十四小时"
 或者独立的 Parser 类:
 
 ~~~ruby
-parser = ChinseNumber::Parser.new
+parser = ChineseNumber::Parser.new
 parser.parse "一万二"
 #=> 12000
 
