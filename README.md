@@ -51,6 +51,9 @@ parser.parse "一万二"
 
 parser.parse "3千1百零5"
 #=> 3105
+
+parser.parse "250万零1千"
+#=> 25001000
 ~~~
 
 ## TODO

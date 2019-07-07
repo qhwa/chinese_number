@@ -94,6 +94,7 @@ describe ChineseNumber::Parser do
 
   it '可以解析汉字和数字混用的情形' do
     test '3千万', 3000_0000
+    test '250万零1千', 2_501_000
   end
 
   it '支持纯阿拉伯数字' do
