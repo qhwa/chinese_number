@@ -88,7 +88,7 @@ describe ChineseNumber::Parser do
 
   it '对于不合法的文字抛出错误' do
     expect {
-      @parser.parse('没有数字').should
+      @parser.parse('没有数字')
     }.to raise_error( ChineseNumber::Parser::InvalidWord )
   end
 
@@ -101,7 +101,7 @@ describe ChineseNumber::Parser do
   end
 
   def test word, expect_digit
-    @parser.parse( word ).should == expect_digit
+    expect(@parser.parse( word )).to eql expect_digit
   end
 
 end

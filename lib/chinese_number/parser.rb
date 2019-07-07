@@ -40,6 +40,7 @@ module ChineseNumber
 
     DIGIT_MAP      = generate_base_map.freeze
     MULTIPERS      = generate_multipers_map
+    ARABIC_NUMBER  = /\d/
     DIGIT_TOKEN    = Regexp.new( "[#{DIGIT_MAP.keys.join}]" )
     MULTIPER_TOKEN = Regexp.new( "[#{MULTIPERS.keys.join}]" )
     TOKEN          = Regexp.new( "[#{(DIGIT_MAP.keys + MULTIPERS.keys).join}]+" )
@@ -58,6 +59,13 @@ module ChineseNumber
 
       while w = @scanner.scan( /\S/ )
         case w
+        when ARABIC_NUMBER
+          if @scanner.check(ARABIC_NUMBER)
+            w << @scanner.scan( /\d+/ )
+            handle_digit w.to_i
+          else
+            handle_digit DIGIT_MAP[w]
+          end
         when DIGIT_TOKEN
           handle_digit DIGIT_MAP[w]
         when MULTIPER_TOKEN
